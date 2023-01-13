@@ -1,0 +1,8 @@
+Django
+django-cleanup
+Pillow
+django-environ
+djangorestframework
+django-cors-headers
+djangorestframework-simplejwt
+djoser
