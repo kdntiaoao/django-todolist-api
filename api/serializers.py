@@ -29,6 +29,16 @@ class PostSerializer(serializers.ModelSerializer):
         return UserSerializer(instance.author).data["username"]
 
 
+class CreatePostSerializer(serializers.ModelSerializer):
+    author = serializers.HiddenField(default=serializers.CurrentUserDefault())
+    created_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ("id", "author", "title", "content", "created_at", "updated_at")
+
+
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
     created_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
