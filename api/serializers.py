@@ -18,8 +18,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class PostSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField(read_only=True)
-    created_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
 
     class Meta:
         model = Post
@@ -31,8 +31,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 class CreatePostSerializer(serializers.ModelSerializer):
     author = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    created_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
 
     class Meta:
         model = Post
@@ -41,8 +41,8 @@ class CreatePostSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
     user = serializers.SerializerMethodField(read_only=True)
-    created_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
 
     class Meta:
         model = Task
@@ -54,8 +54,8 @@ class TaskSerializer(serializers.ModelSerializer):
 
 class CreateTaskSerializer(serializers.ModelSerializer):
     user = serializers.HiddenField(default=serializers.CurrentUserDefault())
-    created_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
-    updated_at = serializers.DateTimeField(format="%Y/%m/%d %H:%M:%S", read_only=True)
+    created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
 
     class Meta:
         model = Task
