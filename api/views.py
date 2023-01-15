@@ -31,7 +31,6 @@ class CreateUserView(generics.CreateAPIView):
 
 
 class PostListView(generics.ListCreateAPIView):
-    # queryset = Post.objects.select_related("author").all()
     serializer_class = PostSerializer
     permission_classes = (AllowAny,)
 
@@ -42,7 +41,7 @@ class PostListView(generics.ListCreateAPIView):
         return Post.objects.select_related("author").order_by("created_at")
 
     def get_serializer_class(self):
-        if self.request.method == "POST":
+        if self.request.method == "POST" and self.request.user.is_authenticated:
             return CreatePostSerializer
         return PostSerializer
 
