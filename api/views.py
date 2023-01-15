@@ -1,6 +1,11 @@
 from rest_framework import generics, status, viewsets
 from rest_framework.decorators import action
-from rest_framework.permissions import AllowAny, BasePermission, SAFE_METHODS
+from rest_framework.permissions import (
+    AllowAny,
+    BasePermission,
+    IsAuthenticated,
+    SAFE_METHODS,
+)
 from rest_framework.response import Response
 
 from .serializers import (
@@ -52,7 +57,7 @@ class TaskViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action in ("list", "retrieve"):
-            permission_classes = (AllowAny,)
+            permission_classes = (IsAuthenticated,)
             return [permission() for permission in permission_classes]
         elif self.action in ("update", "partial_update", "destroy"):
             permission_classes = (IsAuthorOrIsAuthenticated,)
