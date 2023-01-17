@@ -53,7 +53,11 @@ class PostRetrieveView(generics.RetrieveAPIView):
 
 
 class TaskViewSet(viewsets.ModelViewSet):
-    queryset = Task.objects.select_related("user").all()
+    def get_queryset(self):
+        order = self.request.query_params.get("order")
+        if order == "desc":
+            return Task.objects.select_related("user").order_by("-created_at")
+        return Task.objects.select_related("user").order_by("created_at")
 
     def get_serializer_class(self):
         if self.action == "create":
