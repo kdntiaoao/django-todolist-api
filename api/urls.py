@@ -17,5 +17,6 @@ urlpatterns = [
     path("posts/", PostListView.as_view(), name="posts"),
     path("posts/<int:pk>/", PostRetrieveView.as_view(), name="detail_post"),
     path("auth/", include("djoser.urls.jwt")),
+    path("auth/", include("djoser.urls")),
     path("", include(router.urls)),
 ]

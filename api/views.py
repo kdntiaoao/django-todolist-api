@@ -54,10 +54,11 @@ class PostRetrieveView(generics.RetrieveAPIView):
 
 class TaskViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
+        tasks = Task.objects.select_related("user").filter(user=self.request.user)
         order = self.request.query_params.get("order")
         if order == "desc":
-            return Task.objects.select_related("user").order_by("-created_at")
-        return Task.objects.select_related("user").order_by("created_at")
+            return tasks.order_by("-created_at")
+        return tasks.order_by("created_at")
 
     def get_serializer_class(self):
         if self.action == "create":
@@ -65,10 +66,10 @@ class TaskViewSet(viewsets.ModelViewSet):
         return TaskSerializer
 
     def get_permissions(self):
-        if self.action in ("list", "retrieve"):
+        if self.action == "list":
             permission_classes = (IsAuthenticated,)
             return [permission() for permission in permission_classes]
-        elif self.action in ("update", "partial_update", "destroy"):
+        elif self.action in ("retrieve", "update", "partial_update", "destroy"):
             permission_classes = (IsAuthorOrIsAuthenticated,)
             return [permission() for permission in permission_classes]
         return super().get_permissions()
